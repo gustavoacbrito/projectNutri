@@ -32,7 +32,7 @@ public class AntropometriaController {
         return cadastroAntropometriaService.buscarAntropometriaPorId(id);
     }
 
-    @GetMapping("/antropometria/buscar-por-paciente/{pacienteId}")
+    @GetMapping("/antropometria/paciente/{pacienteId}")
     public List<Antropometria> listarAntropometriaPorPaciente(@PathVariable("pacienteId") Long pacienteId) {
         return cadastroAntropometriaService.listarAntropometriaPorPaciente(pacienteId);
     }

@@ -24,7 +24,7 @@ public class PacienteController {
         return pacienteService.listarTodosPacientes();
     }
 
-    @GetMapping("/buscar-por-nome/{nome}")
+    @GetMapping("/paciente/{nome}")
     public List<Paciente> buscarPacientesPorNomeContendo(@Valid @PathVariable String nome) {
         return pacienteService.buscarPacientesPorNome(nome);
     }
