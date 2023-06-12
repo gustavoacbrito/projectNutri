@@ -1,6 +1,7 @@
 package iza.nutrition.projectNutri.service.serviceImp;
 
 import iza.nutrition.projectNutri.exception.BusinessRulesException;
+import iza.nutrition.projectNutri.exception.MensagensErro;
 import iza.nutrition.projectNutri.model.Antropometria;
 import iza.nutrition.projectNutri.repository.AntropometriaRepository;
 import iza.nutrition.projectNutri.repository.PacienteRepository;
@@ -29,7 +30,7 @@ public class CadastroAntropometriaServiceImpl implements CadastroAntropometriaSe
     public Antropometria buscarAntropometriaPorId(Long id) {
         Optional<Antropometria> antropometria = antropometriaRepository.findById(id);
         if (!antropometria.isPresent()) {
-            throw new NoSuchElementException("Antropometria não encontrada no banco de dados");
+            throw new NoSuchElementException(MensagensErro.REGISTRO_NAO_ENCONTRADO);
         } else {
             return antropometria.get();
         }
@@ -40,7 +41,7 @@ public class CadastroAntropometriaServiceImpl implements CadastroAntropometriaSe
         var idPaciente = antropometria.getPaciente().getId();
         var paciente = pacienteRepository.findById(idPaciente);
         if (!paciente.isPresent()) {
-            throw new BusinessRulesException("Não foi possivel cadastrar antropometria para esse paciente pois ele não existe no banco de dados");
+            throw new BusinessRulesException(MensagensErro.CADASTRO_NAO_REALIZADO);
         } else {
             return antropometriaRepository.save(antropometria);
         }
@@ -52,7 +53,7 @@ public class CadastroAntropometriaServiceImpl implements CadastroAntropometriaSe
         if (antropometriaBd.isPresent()) {
             antropometriaRepository.save(antropometria);
         } else {
-            throw new NoSuchElementException("Não foi possível atualizar. Antropometria não encontrada no banco de dados.");
+            throw new NoSuchElementException(MensagensErro.REGISTRO_NAO_ENCONTRADO);
         }
         return antropometria;
     }
@@ -62,7 +63,7 @@ public class CadastroAntropometriaServiceImpl implements CadastroAntropometriaSe
         if (antropometriaRepository.findById(id).isPresent()) {
             antropometriaRepository.deleteById(id);
         } else {
-            throw new NoSuchElementException("Não foi possível deletar antropometria. Antropometria não encontrada com o ID: " + id);
+            throw new NoSuchElementException(MensagensErro.REGISTRO_NAO_ENCONTRADO);
         }
         return null;
     }
@@ -72,9 +73,9 @@ public class CadastroAntropometriaServiceImpl implements CadastroAntropometriaSe
         var antropometrias = antropometriaRepository.findByPacienteId(pacienteId);
         var paciente = pacienteRepository.findById(pacienteId);
         if(!paciente.isPresent()){
-            throw new NoSuchElementException("Esse paciente não existe no bando de dados");
+            throw new NoSuchElementException(MensagensErro.REGISTRO_NAO_ENCONTRADO);
         }else if (antropometrias.isEmpty()) {
-            throw new NoSuchElementException("Esse paciente não possui antropometrias");
+            throw new NoSuchElementException(MensagensErro.PACIENTE_SEM_ANTROPOMETRIAS);
         } else {
             return antropometrias;
         }

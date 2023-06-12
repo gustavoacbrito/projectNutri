@@ -1,6 +1,7 @@
 package iza.nutrition.projectNutri.service.serviceImp;
 
 import iza.nutrition.projectNutri.exception.BusinessRulesException;
+import iza.nutrition.projectNutri.exception.MensagensErro;
 import iza.nutrition.projectNutri.model.Paciente;
 import iza.nutrition.projectNutri.repository.PacienteRepository;
 import iza.nutrition.projectNutri.service.CadastroPacienteService;
@@ -27,7 +28,7 @@ public class CadastroPacienteServiceImpl implements CadastroPacienteService {
         if (paciente.isPresent()) {
             return paciente.get();
         } else {
-            throw new NoSuchElementException("Paciente não encontrado com o ID: " + id);
+            throw new NoSuchElementException(MensagensErro.REGISTRO_NAO_ENCONTRADO);
         }
     }
     public List<Paciente> buscarPacientesPorNome(String nome) {
@@ -39,7 +40,7 @@ public class CadastroPacienteServiceImpl implements CadastroPacienteService {
         String cpf = paciente.getCpf();
         String email = paciente.getEmail();
         if (pacienteRepository.existsPacienteByCpf(cpf) || pacienteRepository.existsPacienteByEmail(email)) {
-            throw new BusinessRulesException("Paciente com esse CPF ou Email já se encontra cadastrado no banco de dados.");
+            throw new BusinessRulesException(MensagensErro.REGISTRO_JA_EXISTENTE);
         } else {
             return pacienteRepository.save(paciente);
         }
@@ -57,7 +58,7 @@ public class CadastroPacienteServiceImpl implements CadastroPacienteService {
         if (pacienteBd.isPresent()) {
             pacienteRepository.save(paciente);
         }else{
-            throw new NoSuchElementException("Não foi possível atualizar. Paciente não encontrado no banco de dados.");
+            throw new NoSuchElementException(MensagensErro.REGISTRO_NAO_ENCONTRADO);
         }
         return paciente;
     }
@@ -67,7 +68,7 @@ public class CadastroPacienteServiceImpl implements CadastroPacienteService {
         if (pacienteRepository.findById(id).isPresent()) {
             pacienteRepository.deleteById(id);
         }else{
-            throw new NoSuchElementException("Não foi possível deletar paciente. Paciente não encontrado com o ID: " + id);
+            throw new NoSuchElementException(MensagensErro.REGISTRO_NAO_ENCONTRADO);
         }
         return null;
     }
