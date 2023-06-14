@@ -49,7 +49,7 @@ public class AntropometriaController {
         Antropometria antropometriaAtualizada = cadastroAntropometriaService.atualizarAntropometria(id,antropometria);
         return ResponseEntity.status(HttpStatus.OK).body(antropometriaAtualizada);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/antropometria/{id}")
     public ResponseEntity<Void> deletarAntropometria(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(cadastroAntropometriaService.deletarAntropometria(id));
     }
