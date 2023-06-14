@@ -24,7 +24,7 @@ Para executar a aplicação, siga os passos abaixo:
 3. Abra um terminal e execute o seguinte comando para iniciar a aplicação: `gradlebootRun` 
 4. A aplicação será executada e estará disponível no endereço `http://localhost:8080`.
 
-## Endpoints Disponíveis
+## Endpoints Pacientes
 
 | Método | Endpoint                                | Descrição                                       |
 | ------ | --------------------------------------- | ----------------------------------------------- |
@@ -35,6 +35,17 @@ Para executar a aplicação, siga os passos abaixo:
 | POST   | `/pacientes/lista`                       | Adiciona uma lista de pacientes                 |
 | PUT    | `/pacientes/{id}`                        | Atualiza os dados de um paciente específico     |
 | DELETE | `/pacientes/{id}`                        | Deleta um paciente do sistema                   |
+
+## Endpoints Antropometria
+
+| Método | Endpoint                                  | Descrição                                            |
+| ------ | ----------------------------------------- | ---------------------------------------------------- |
+| GET    | `/pacientes/antropometria`                | Retorna a lista de todas as antropometrias           |
+| GET    | `/pacientes/antropometria/{id}`            | Retorna os detalhes de uma antropometria específica  |
+| GET    | `/pacientes/antropometria/paciente/{pacienteId}` | Retorna a lista de antropometrias de um paciente específico |
+| POST   | `/pacientes/antropometria`                | Adiciona uma nova antropometria                      |
+| PUT    | `/pacientes/antropometria/atualizacao/{id}` | Atualiza os dados de uma antropometria específica |
+| DELETE | `/pacientes/antropometria/{id}`            | Deleta uma antropometria do sistema                  |
 
 
 

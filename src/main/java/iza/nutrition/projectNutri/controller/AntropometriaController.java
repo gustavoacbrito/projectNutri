@@ -2,7 +2,6 @@ package iza.nutrition.projectNutri.controller;
 
 import iza.nutrition.projectNutri.model.Antropometria;
 import iza.nutrition.projectNutri.dto.AntropometriaDto;
-import iza.nutrition.projectNutri.repository.AntropometriaRepository;
 import iza.nutrition.projectNutri.service.serviceImp.CadastroAntropometriaServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/pacientes")
 public class AntropometriaController {
-
-    @Autowired
-    private AntropometriaRepository antropometriaRepository;
 
     @Autowired
     private CadastroAntropometriaServiceImpl cadastroAntropometriaService;
@@ -46,4 +42,16 @@ public class AntropometriaController {
                         + antropometria.getId() + " do paciente "
                         + antropometria.getPaciente().getId() + " saved successfully.");
     }
+    @PutMapping("/antropometria/atualizacao/{id}")
+    public ResponseEntity<Antropometria> atualizarAntropometria(@PathVariable Long id,@RequestBody @Valid AntropometriaDto antropometriaDto){
+        Antropometria antropometria = antropometriaDto.toEntity();
+        antropometria.setId(id);
+        Antropometria antropometriaAtualizada = cadastroAntropometriaService.atualizarAntropometria(id,antropometria);
+        return ResponseEntity.status(HttpStatus.OK).body(antropometriaAtualizada);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarAntropometria(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(cadastroAntropometriaService.deletarAntropometria(id));
+    }
+
 }

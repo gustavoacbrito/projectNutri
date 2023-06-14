@@ -2,6 +2,7 @@ package iza.nutrition.projectNutri.service.serviceImp;
 
 import iza.nutrition.projectNutri.exception.BusinessRulesException;
 import iza.nutrition.projectNutri.exception.MensagensErro;
+import iza.nutrition.projectNutri.exception.exceptionHandler.PacienteSemAntropometriaException;
 import iza.nutrition.projectNutri.model.Antropometria;
 import iza.nutrition.projectNutri.repository.AntropometriaRepository;
 import iza.nutrition.projectNutri.repository.PacienteRepository;
@@ -72,12 +73,13 @@ public class CadastroAntropometriaServiceImpl implements CadastroAntropometriaSe
     public List<Antropometria> listarAntropometriaPorPaciente(Long pacienteId) {
         var antropometrias = antropometriaRepository.findByPacienteId(pacienteId);
         var paciente = pacienteRepository.findById(pacienteId);
-        if(!paciente.isPresent()){
+        if(!paciente.isPresent()) {
             throw new NoSuchElementException(MensagensErro.REGISTRO_NAO_ENCONTRADO);
         }else if (antropometrias.isEmpty()) {
-            throw new NoSuchElementException(MensagensErro.PACIENTE_SEM_ANTROPOMETRIAS);
+            throw new PacienteSemAntropometriaException(MensagensErro.PACIENTE_SEM_ANTROPOMETRIAS);
         } else {
             return antropometrias;
         }
+
     }
 }

@@ -48,6 +48,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         errorInfo.setDataHora(OffsetDateTime.now());
         return handleExceptionInternal(ex, errorInfo, new HttpHeaders(), status, request);
     }
+    @ExceptionHandler(PacienteSemAntropometriaException.class)
+    public ResponseEntity<Object> handlePacienteSemAntropometriaException(PacienteSemAntropometriaException ex, WebRequest request) {
+        var status = HttpStatus.NOT_FOUND;
+        ErrorInfo errorInfo = new ErrorInfo();
+        errorInfo.setTitulo(ex.getMessage());
+        errorInfo.setStatus(status.value());
+        errorInfo.setDataHora(OffsetDateTime.now());
+        return handleExceptionInternal(ex, errorInfo, new HttpHeaders(), status, request);
+    }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex, WebRequest request) {
