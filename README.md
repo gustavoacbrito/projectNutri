@@ -24,17 +24,18 @@ Para executar a aplicação, siga os passos abaixo:
 3. Abra um terminal e execute o seguinte comando para iniciar a aplicação: `gradlebootRun` 
 4. A aplicação será executada e estará disponível no endereço `http://localhost:8080`.
 
-## Endpoints disponíveis
+## Endpoints Disponíveis
 
-A API disponibiliza os seguintes endpoints:
+| Método | Endpoint                                | Descrição                                       |
+| ------ | --------------------------------------- | ----------------------------------------------- |
+| GET    | `/pacientes`                            | Retorna a lista de todos os pacientes           |
+| GET    | `/pacientes/paciente/{nome}`             | Busca pacientes cujo nome contenha o valor      |
+| GET    | `/pacientes/{id}`                        | Retorna os detalhes de um paciente específico   |
+| POST   | `/pacientes`                            | Adiciona um novo paciente                       |
+| POST   | `/pacientes/lista`                       | Adiciona uma lista de pacientes                 |
+| PUT    | `/pacientes/{id}`                        | Atualiza os dados de um paciente específico     |
+| DELETE | `/pacientes/{id}`                        | Deleta um paciente do sistema                   |
 
-- `GET /pacientes`: Retorna a lista de todos os pacientes cadastrados.
-- `GET /pacientes/buscar-por-nome/{nome}`: Retorna a lista de pacientes cujo nome contenha o valor fornecido.
-- `GET /pacientes/{id}`: Retorna os detalhes de um paciente específico.
-- `POST /pacientes`: Cria um novo paciente com base nos dados fornecidos.
-- `POST /pacientes/lista`: Cria uma lista de pacientes com base nos dados fornecidos.
-- `PUT /pacientes/{id}`: Atualiza os dados de um paciente específico.
-- `DELETE /pacientes/{id}`: Remove um paciente do sistema.
 
 
 ## Contribuição
