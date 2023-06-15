@@ -38,7 +38,7 @@ public class PacienteController {
     @PostMapping
     public ResponseEntity<Paciente> adicionar(@RequestBody @Valid  PacienteDto pacienteDto) {
         Paciente paciente = pacienteService.adicionar(pacienteDto.toEntity());
-        return ResponseEntity.status(HttpStatus.OK).body(paciente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(paciente);
     }
 
     @PostMapping("/lista")

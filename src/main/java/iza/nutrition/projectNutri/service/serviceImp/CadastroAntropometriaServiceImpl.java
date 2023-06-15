@@ -4,6 +4,7 @@ import iza.nutrition.projectNutri.exception.BusinessRulesException;
 import iza.nutrition.projectNutri.exception.MensagensErro;
 import iza.nutrition.projectNutri.exception.exceptionHandler.PacienteSemAntropometriaException;
 import iza.nutrition.projectNutri.model.Antropometria;
+import iza.nutrition.projectNutri.model.Paciente;
 import iza.nutrition.projectNutri.repository.AntropometriaRepository;
 import iza.nutrition.projectNutri.repository.PacienteRepository;
 import iza.nutrition.projectNutri.service.CadastroAntropometriaService;
@@ -39,13 +40,10 @@ public class CadastroAntropometriaServiceImpl implements CadastroAntropometriaSe
 
     @Override
     public Antropometria adicionar(Antropometria antropometria) {
-        var idPaciente = antropometria.getPaciente().getId();
-        var paciente = pacienteRepository.findById(idPaciente);
-        if (!paciente.isPresent()) {
-            throw new BusinessRulesException(MensagensErro.CADASTRO_NAO_REALIZADO);
-        } else {
+        Paciente paciente = pacienteRepository.findById(antropometria.getPaciente().getId())
+                .orElseThrow(()-> new BusinessRulesException(MensagensErro.CADASTRO_NAO_REALIZADO));
+        antropometria.setPaciente(paciente);
             return antropometriaRepository.save(antropometria);
-        }
     }
 
     @Override

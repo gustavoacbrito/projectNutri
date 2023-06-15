@@ -1,7 +1,11 @@
 package iza.nutrition.projectNutri.controller;
 
+import iza.nutrition.projectNutri.exception.BusinessRulesException;
+import iza.nutrition.projectNutri.exception.MensagensErro;
 import iza.nutrition.projectNutri.model.Antropometria;
 import iza.nutrition.projectNutri.dto.AntropometriaDto;
+import iza.nutrition.projectNutri.model.Paciente;
+import iza.nutrition.projectNutri.repository.PacienteRepository;
 import iza.nutrition.projectNutri.service.serviceImp.CadastroAntropometriaServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/pacientes")
@@ -17,6 +22,8 @@ public class AntropometriaController {
 
     @Autowired
     private CadastroAntropometriaServiceImpl cadastroAntropometriaService;
+    @Autowired
+    private PacienteRepository pacienteRepository;
 
     @GetMapping("/antropometria")
     public List<Antropometria> listarAntropometrias() {
@@ -29,7 +36,7 @@ public class AntropometriaController {
     }
 
     @GetMapping("/antropometria/paciente/{pacienteId}")
-    public List<Antropometria> listarAntropometriaPorPaciente(@PathVariable("pacienteId") Long pacienteId) {
+    public List<Antropometria> listarAntropometriaPorPaciente  (@PathVariable("pacienteId") Long pacienteId) {
         return cadastroAntropometriaService.listarAntropometriaPorPaciente(pacienteId);
     }
 
@@ -40,7 +47,7 @@ public class AntropometriaController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Antropometria id nº"
                         + antropometria.getId() + " do paciente "
-                        + antropometria.getPaciente().getId() + " saved successfully.");
+                        + antropometria.getPaciente().getNome() + " saved successfully.");
     }
     @PutMapping("/antropometria/atualizacao/{id}")
     public ResponseEntity<Antropometria> atualizarAntropometria(@PathVariable Long id,@RequestBody @Valid AntropometriaDto antropometriaDto){
