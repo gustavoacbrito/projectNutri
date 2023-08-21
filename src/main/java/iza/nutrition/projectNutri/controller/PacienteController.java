@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pacientes")
-public class PacienteController {
+public class PacienteController{
 
     @Autowired
     private CadastroPacienteServiceImpl pacienteService;

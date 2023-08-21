@@ -1,10 +1,8 @@
 package iza.nutrition.projectNutri.controller;
 
-import iza.nutrition.projectNutri.exception.BusinessRulesException;
-import iza.nutrition.projectNutri.exception.MensagensErro;
+
 import iza.nutrition.projectNutri.model.Antropometria;
 import iza.nutrition.projectNutri.dto.AntropometriaDto;
-import iza.nutrition.projectNutri.model.Paciente;
 import iza.nutrition.projectNutri.repository.PacienteRepository;
 import iza.nutrition.projectNutri.service.serviceImp.CadastroAntropometriaServiceImpl;
 import jakarta.validation.Valid;
@@ -14,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/pacientes")
